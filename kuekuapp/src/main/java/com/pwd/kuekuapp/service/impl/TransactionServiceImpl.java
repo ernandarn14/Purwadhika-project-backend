@@ -120,16 +120,24 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	@Transactional
-	public Transactions rejectPayment(Transactions transactions, int id) {
+	public Transactions rejectPayment(Transactions transactions, int id, String failedNote) {
 		Date date = new Date();
 
 		Transactions findTransaction = transactionRepo.findById(id).get();
 		if (findTransaction == null)
 			throw new RuntimeException("Transaksi Tidak Ditemukan");
-
-		findTransaction.setConfirmDate(date);
+		
+		findTransaction.setId(findTransaction.getId());
+		findTransaction.setPaymentDate(findTransaction.getPaymentDate());
+		findTransaction.setPaymentMethod(findTransaction.getPaymentMethod());
+		findTransaction.setPaymentReciept(findTransaction.getPaymentReciept());
 		findTransaction.setStatus("gagal");
-		findTransaction.setFailedNote(null);
+		findTransaction.setTotalPayment(findTransaction.getTotalPayment());
+		findTransaction.setPlans(findTransaction.getPlans());
+		findTransaction.setUser(findTransaction.getUser());
+		findTransaction.setCheckoutDate(findTransaction.getCheckoutDate());
+		findTransaction.setConfirmDate(date);
+		findTransaction.setFailedNote(failedNote);
 		Transactions newData = transactionRepo.save(findTransaction);
 		return newData;
 	}

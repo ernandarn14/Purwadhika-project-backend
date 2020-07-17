@@ -18,5 +18,7 @@ public interface RecipeService {
 	public Recipes addCategoryRecipe(Recipes recipes, int recipeCategory);
 	public Page<Recipes> findByCategory(String categoryName, String sort, Pageable pageable);
 	public Page<Recipes> getAllRecipePagination(String sort, Pageable pageable);
+	public Iterable<Recipes> getBestRecipesByCategory(String categoryName, String sort);
+	public Iterable<Recipes> getAllBestRecipe(String sort);
 	public void deleteRecipes(int id);
 }

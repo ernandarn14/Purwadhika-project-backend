@@ -1,5 +1,7 @@
 package com.pwd.kuekuapp.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +28,11 @@ public class RecipeIngredientController {
 		return recipeIngredientService.getAllIngredients();
 	}
 	
+	@GetMapping("/{id}")
+	public Optional<RecipesIngredients> getIngredientsById(@PathVariable int id){
+		return recipeIngredientService.getIngredientsById(id);
+	}
+	
 	@GetMapping("/resep/{recipes}")
 	public Iterable<RecipesIngredients> getIngredientByRecipeId(@PathVariable int recipes){
 		return recipeIngredientService.getIngredientByRecipeId(recipes);
@@ -39,6 +46,11 @@ public class RecipeIngredientController {
 	@PutMapping("/edit/{id}/{recipes}")
 	public RecipesIngredients editIngredients(@PathVariable int id, @PathVariable int recipes) {
 		return recipeIngredientService.editIngredients(id, recipes);
+	}
+	
+	@PutMapping("/edit/{recipes}")
+	public RecipesIngredients editIngredients(@RequestBody RecipesIngredients recipesIngredients, @PathVariable int recipes) {
+		return recipeIngredientService.editIngredients(recipesIngredients, recipes);
 	}
 	
 	@DeleteMapping("/{id}")

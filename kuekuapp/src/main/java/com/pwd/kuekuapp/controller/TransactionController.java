@@ -73,6 +73,11 @@ public class TransactionController {
 		return transactionService.getByPendingStatus(status, userId);
 	}
 	
+	@GetMapping("/terlaris")
+	public Iterable<Transactions> getBestSellerPlans(){
+		return transactionRepo.getBestSellerPlans();
+	}
+	
 	@PostMapping("/tambah/pengguna/{userId}/langganan/{planId}")
 	public Transactions addTransactions(@RequestBody Transactions transactions, @PathVariable int planId, @PathVariable int userId) {
 		return transactionService.addTransactions(transactions, planId, userId);
@@ -133,8 +138,8 @@ public class TransactionController {
 	}
 	
 	@PutMapping("/tolak/{id}")
-	public Transactions rejectPayment(@RequestBody Transactions transactions, @PathVariable int id){
-		return transactionService.rejectPayment(transactions, id);
+	public Transactions rejectPayment(@RequestBody Transactions transactions, @PathVariable int id, @RequestParam String failedNote){
+		return transactionService.rejectPayment(transactions, id, failedNote);
 	}
 	
 	

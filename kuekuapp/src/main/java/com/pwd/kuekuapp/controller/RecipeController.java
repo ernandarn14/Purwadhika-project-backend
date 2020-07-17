@@ -247,6 +247,16 @@ public class RecipeController {
 		return recipeService.getAllRecipePagination(sort, pageable);
 	}
 	
+	@GetMapping("/terbaik/{sort}")
+	public Iterable<Recipes> getAllBestRecipe(@PathVariable String sort){
+		return recipeService.getAllBestRecipe(sort);
+	}
+	
+	@GetMapping("/kategori/{sort}")
+	public Iterable<Recipes> getBestRecipesByCategory(@RequestParam String categoryName, @PathVariable String sort){
+		return recipeService.getBestRecipesByCategory(categoryName, sort);
+	}
+	
 	@GetMapping("/terbaik")
 	public Iterable<Recipes> getBestRecipe(){
 		return recipeService.getBestRecipe();

@@ -17,7 +17,7 @@ public interface RecipeRepo extends JpaRepository<Recipes, Integer>,  PagingAndS
 	@Query(value = "SELECT * FROM Recipes WHERE user_id = ?1", nativeQuery = true)
 	public Iterable<Recipes> getRecipesByUser(int users);
 	
-	@Query(value = "SELECT * FROM Recipes WHERE rating >= 3 limit 3", nativeQuery = true)
+	@Query(value = "SELECT * FROM Recipes order by rating desc limit 3", nativeQuery = true)
 	public Iterable<Recipes> getBestRecipes();
 	
 	@Query(value = "SELECT a.recipe_name, b.recipe_category_name FROM recipes a join recipe_category b on b.id = a.recipe_category_id WHERE a.recipe_id = ?1", nativeQuery = true)
@@ -42,4 +42,17 @@ public interface RecipeRepo extends JpaRepository<Recipes, Integer>,  PagingAndS
 	
 	@Query(value ="SELECT distinct * FROM recipe_category rc join recipes r on r.recipe_category_id = rc.id where rc.recipe_category_name=?1 and r.id=?2 order by recipe_name asc ", nativeQuery = true)
 	public List<Recipes> orderByCategory(String categoryName, int id);
+	
+	//query chart recipe report
+	@Query(value = "SELECT * FROM Recipes order by rating desc", nativeQuery = true)
+	public Iterable<Recipes> getChartBestRecipesDesc();
+	
+	@Query(value = "SELECT * FROM Recipes order by rating asc", nativeQuery = true)
+	public Iterable<Recipes> getChartBestRecipesAsc();
+	
+	@Query(value = "SELECT * FROM Recipes r join recipe_category rc on rc.id = r.recipe_category_id where rc.recipe_category_name=?1 order by rating desc", nativeQuery = true)
+	public Iterable<Recipes> getChartBestRecipesBycategoryDesc(String categoryName);
+	
+	@Query(value = "SELECT * FROM Recipes r join recipe_category rc on rc.id = r.recipe_category_id where rc.recipe_category_name=?1 order by rating asc", nativeQuery = true)
+	public Iterable<Recipes> getChartBestRecipesBycategoryAsc(String categoryName);
 }

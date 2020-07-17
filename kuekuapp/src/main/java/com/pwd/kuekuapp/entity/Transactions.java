@@ -33,6 +33,16 @@ public class Transactions {
 	@JoinColumn(name = "plan_id")
 	private Plans plans;
 	
+	private int total;
+	
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
 	public Subscriptions getSubcriptions() {
 		return subcriptions;
 	}

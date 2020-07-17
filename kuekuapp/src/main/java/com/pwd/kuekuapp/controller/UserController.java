@@ -68,6 +68,7 @@ public class UserController {
 		user.setVerified(false);
 		user.setVerifyToken(verifyToken);
 		user.setRole("pengguna");
+		user.setMembership("non premium");
 
 		Users savedUser = userRepo.save(user);
 		savedUser.setPassword(null);
@@ -228,7 +229,12 @@ public class UserController {
 	}
 	
 	@GetMapping("/premium")
-	public int getAllPremiumUser() {
+	public Iterable<Users> getAllPremiumUser() {
 		return userRepo.getAllPremiumUsers();
+	}
+	
+	@GetMapping("/membership")
+	public Iterable<Users> getMembershipData() {
+		return userRepo.getMembershipData();
 	}
 }

@@ -12,5 +12,5 @@ public interface TransactionService {
 	public Iterable<Transactions> getByStatus(String status, int userId);
 	public Iterable<Transactions> getByPendingStatus(String status, int userId);
 	public Transactions confirmPayment(int id);
-	public Transactions rejectPayment(Transactions transactions, int id);
+	public Transactions rejectPayment(Transactions transactions, int id, String failedNote);
 }

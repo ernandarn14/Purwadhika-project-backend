@@ -100,6 +100,7 @@ public class RecipeStepServiceImpl implements RecipeStepService {
 			throw new RuntimeException("Resep tidak ditemukan");
 		}
 		findStep.setRecipes(findRecipe);
+		findStep.setId(findStep.getId());
 
 		return recipeStepRepo.save(findStep);
 	}

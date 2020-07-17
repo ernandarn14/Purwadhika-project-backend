@@ -1,5 +1,7 @@
 package com.pwd.kuekuapp.service.impl;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,7 @@ public class RecipeIngredientServiceImpl implements RecipeIngredientService {
 		if (findIngredient == null)
 			throw new RuntimeException("Bahan Resep Tidak Ditemukan");
 		
-		findIngredient.getRecipes().setRecipeIngredients(null);
+		findIngredient.getRecipes().setRecipesIngredients(null);
 		findIngredient.setRecipes(null);
 		
 		recipeIngredientsRepo.deleteById(id);
@@ -72,6 +74,31 @@ public class RecipeIngredientServiceImpl implements RecipeIngredientService {
 		findIngredient.setRecipes(findRecipe);
 		
 		return recipeIngredientsRepo.save(findIngredient);
+	}
+
+	@Override
+	@Transactional
+	public RecipesIngredients editIngredients(RecipesIngredients recipesIngredients, int recipes) {
+		RecipesIngredients findIngredient = recipeIngredientsRepo.findById(recipesIngredients.getId()).get();
+		if (findIngredient == null)
+			throw new RuntimeException("Bahan Resep Tidak Ditemukan");
+		
+		Recipes findRecipe = recipeRepo.findById(recipes).get();
+		
+		if (findRecipe == null) {
+			throw new RuntimeException("Resep tidak ditemukan");
+		}
+		
+		findIngredient.setRecipes(findRecipe);
+		findIngredient.setId(recipesIngredients.getId());
+		
+		return recipeIngredientsRepo.save(recipesIngredients);
+	}
+
+	@Override
+	@Transactional
+	public Optional<RecipesIngredients> getIngredientsById(int id) {
+		return recipeIngredientsRepo.findById(id);
 	}
 
 }

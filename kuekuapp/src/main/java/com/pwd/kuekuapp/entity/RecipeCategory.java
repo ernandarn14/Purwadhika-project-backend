@@ -20,7 +20,7 @@ public class RecipeCategory {
 	
 	private String recipeCategoryName;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "recipeCategory")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "recipeCategory", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Recipes> recipes;
 	

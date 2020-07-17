@@ -144,11 +144,12 @@ public class RecipeServiceImpl implements RecipeService {
 		findRecipe.setRecipeCategory(null);
 		
 		//putus relasi dengan ingredients
-		findRecipe.getRecipeIngredients().forEach(ingredients -> {
+		findRecipe.getRecipesIngredients().forEach(ingredients -> {
+//			List<Recipes> listRecipe = ingredients.getRecipes();
 			ingredients.setRecipes(null);
-			//recipeIngredientsRepo.save(ingredients);
+			recipeIngredientsRepo.save(ingredients);
 		});
-		findRecipe.setRecipeIngredients(null);
+		findRecipe.setRecipesIngredients(null);
 		//recipeIngredientsRepo.deleteById(id);
 		//recipeIngredientsRepo.deleteIngredientByRecipe(id);
 		
@@ -162,6 +163,25 @@ public class RecipeServiceImpl implements RecipeService {
 		//recipeStepRepo.deleteStepByRecipes(id);
 		
 		recipeRepo.deleteById(id);
+	}
+
+	@Override
+	public Iterable<Recipes> getBestRecipesByCategory(String categoryName, String sort) {
+		if(sort.equals("asc")) {
+			return recipeRepo.getChartBestRecipesBycategoryAsc(categoryName);
+		} 
+		else {
+			return recipeRepo.getChartBestRecipesBycategoryDesc(categoryName);
+		}
+	}
+
+	@Override
+	public Iterable<Recipes> getAllBestRecipe(String sort) {
+		if(sort.equals("asc")) {
+			return recipeRepo.getChartBestRecipesAsc();
+		} else {
+			return recipeRepo.getChartBestRecipesDesc();
+		}
 	}
 
 

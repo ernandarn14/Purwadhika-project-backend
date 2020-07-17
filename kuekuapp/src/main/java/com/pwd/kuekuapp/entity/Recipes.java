@@ -45,9 +45,9 @@ public class Recipes {
 	@JoinColumn(name = "recipe_category_id")
 	private RecipeCategory recipeCategory;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "recipes")
-	@JsonIgnore
-	private List<RecipeIngredients> recipeIngredients;
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "recipes")
+//	@JsonIgnore
+//	private List<RecipeIngredients> recipeIngredients;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipes")
 	@JsonIgnore
@@ -93,13 +93,13 @@ public class Recipes {
 		this.recipeSteps = recipeSteps;
 	}
 
-	public List<RecipeIngredients> getRecipeIngredients() {
-		return recipeIngredients;
-	}
-
-	public void setRecipeIngredients(List<RecipeIngredients> recipeIngredients) {
-		this.recipeIngredients = recipeIngredients;
-	}
+//	public List<RecipeIngredients> getRecipeIngredients() {
+//		return recipeIngredients;
+//	}
+//
+//	public void setRecipeIngredients(List<RecipeIngredients> recipeIngredients) {
+//		this.recipeIngredients = recipeIngredients;
+//	}
 
 	public int getRating() {
 		return rating;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pwd.kuekuapp.dao.RecipeStepRepo;
@@ -57,8 +58,8 @@ public class RecipeStepController {
 		return recipeStepService.editRecipeSteps(recipeSteps, recipes);
 	}
 	
-	@DeleteMapping("/hapus/resep/{recipes}")
-	public void deleteStepByRecipe(@PathVariable int recipes) {
+	@DeleteMapping("/hapus/resep")
+	public void deleteStepByRecipe(@RequestParam int recipes) {
 		recipeStepService.deleteStepByRecipe(recipes);
 		//recipeStepRepo.deleteStepByRecipes(recipeId);
 	}

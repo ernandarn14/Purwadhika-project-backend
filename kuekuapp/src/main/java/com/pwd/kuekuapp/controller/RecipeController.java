@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
-import java.util.List;
+//import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +59,6 @@ public class RecipeController {
 	@Autowired
 	private RecipeCategoryRepo recipeCategoryRepo;
 
-//	@Autowired
-//	private RecipeCategoryRepo recipeCategoryRepo;
-
 	private String uploadPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
 
 	@GetMapping
@@ -89,37 +86,37 @@ public class RecipeController {
 		return recipeService.getRecipeCategoryName();
 	}
 
-	@PostMapping("/tambah/pengguna/{users}")
-	public Recipes addRecipeByUser(@RequestParam("file") MultipartFile file,
-			@RequestParam("userData") String stringRecipes, @PathVariable int users)
-			throws JsonMappingException, JsonProcessingException {
-		Date date = new Date();
-
-		Recipes recipe = new ObjectMapper().readValue(stringRecipes, Recipes.class);
-		String fileExtension = file.getContentType().split("/")[1];
-		String newFileName = "RECIPE-" + date.getTime() + "." + fileExtension;
-
-		String fileName = StringUtils.cleanPath(newFileName);
-
-		Path path = Paths.get(StringUtils.cleanPath(uploadPath) + fileName);
-
-		try {
-			Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/resep/download/")
-				.path(fileName).toUriString();
-
-		recipe.setRecipeImage(fileDownloadUri);
-		recipe.setId(0);
-
-		Users findUser = userRepo.findById(users).get();
-		recipe.setUsers(findUser);
-
-		return recipeRepo.save(recipe);
-	}
+//	@PostMapping("/tambah/pengguna/{users}")
+//	public Recipes addRecipeByUser(@RequestParam("file") MultipartFile file,
+//			@RequestParam("userData") String stringRecipes, @PathVariable int users)
+//			throws JsonMappingException, JsonProcessingException {
+//		Date date = new Date();
+//
+//		Recipes recipe = new ObjectMapper().readValue(stringRecipes, Recipes.class);
+//		String fileExtension = file.getContentType().split("/")[1];
+//		String newFileName = "RECIPE-" + date.getTime() + "." + fileExtension;
+//
+//		String fileName = StringUtils.cleanPath(newFileName);
+//
+//		Path path = Paths.get(StringUtils.cleanPath(uploadPath) + fileName);
+//
+//		try {
+//			Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/resep/download/")
+//				.path(fileName).toUriString();
+//
+//		recipe.setRecipeImage(fileDownloadUri);
+//		recipe.setId(0);
+//
+//		Users findUser = userRepo.findById(users).get();
+//		recipe.setUsers(findUser);
+//
+//		return recipeRepo.save(recipe);
+//	}
 
 	@PostMapping("/tambah/pengguna/{users}/kategori/{recipeCategory}")
 	public Recipes addRecipe(@RequestParam("file") MultipartFile file, @RequestParam("userData") String stringRecipes,
@@ -156,7 +153,6 @@ public class RecipeController {
 			throw new RuntimeException("Kategori Tidak Ditemukan");
 		recipe.setRecipeCategory(findCategoryRecipe);
 		
-		//recipeRepo.save(recipe);
 
 		return recipeRepo.save(recipe);
 	}
@@ -226,11 +222,11 @@ public class RecipeController {
 
 	}
 
-	@PostMapping("/tambah/kategori/{recipeCategory}/pengguna/{users}")
-	public Recipes addCategoryRecipe(@RequestBody Recipes recipes, @PathVariable int recipeCategory, @PathVariable int users) {
-		//return recipeService.addCategoryRecipe(recipes, recipeCategory);
-		return recipeService.addRecipe(recipes, recipeCategory, users);
-	}
+//	@PostMapping("/tambah/kategori/{recipeCategory}/pengguna/{users}")
+//	public Recipes addCategoryRecipe(@RequestBody Recipes recipes, @PathVariable int recipeCategory, @PathVariable int users) {
+//		//return recipeService.addCategoryRecipe(recipes, recipeCategory);
+//		return recipeService.addRecipe(recipes, recipeCategory, users);
+//	}
 	
 	@GetMapping("/paging/{sort}")
 	public Page<Recipes> getDataPaging(@RequestParam String categoryName, @PathVariable String sort, Pageable pageable){
@@ -257,26 +253,41 @@ public class RecipeController {
 		return recipeService.getBestRecipesByCategory(categoryName, sort);
 	}
 	
+	@GetMapping("/admin/{sort}")
+	public Iterable<Recipes> adminGetAllRecipe(@PathVariable String sort){
+		return recipeService.adminGetAllRecipe(sort);
+	}
+	
+	@GetMapping("admin/kategori/{sort}")
+	public Iterable<Recipes> adminGetRecipeByCategory(@RequestParam String categoryName, @PathVariable String sort){
+		return recipeService.adminGetRecipeByCategory(categoryName, sort);
+	}
+	
 	@GetMapping("/terbaik")
 	public Iterable<Recipes> getBestRecipe(){
 		return recipeService.getBestRecipe();
 	}
 	
-	@GetMapping("/list/{id}")
-	public List<Recipes> getDataCategory(@PathVariable int id, @RequestParam String categoryName){
-		return recipeRepo.orderByCategory(categoryName, id);
+	@GetMapping("/kategori/terbaik")
+	public Iterable<Recipes> getBestRecipeByCategory(@RequestParam String categoryName){
+		return recipeRepo.gettBestRecipesBycategory(categoryName);
 	}
+	
+//	@GetMapping("/list/{id}")
+//	public List<Recipes> getDataCategory(@PathVariable int id, @RequestParam String categoryName){
+//		return recipeRepo.orderByCategory(categoryName, id);
+//	}
 	
 	@DeleteMapping("/hapus/{id}")
 	public void deleteRecipes(@PathVariable int id) {
 		 recipeService.deleteRecipes(id);
 	}
 	
-	@GetMapping("/coba/{id}")
-	public void getRecipe(@PathVariable int id) {
-		Recipes findRecipe = recipeRepo.findById(id).get();
-		System.out.println(findRecipe);
-	}
+//	@GetMapping("/coba/{id}")
+//	public void getRecipe(@PathVariable int id) {
+//		Recipes findRecipe = recipeRepo.findById(id).get();
+//		System.out.println(findRecipe);
+//	}
 	
 	@PutMapping("/tambah/nilai/{id}")
 	public Recipes addScore(@PathVariable int id, @RequestBody Recipes recipe) {

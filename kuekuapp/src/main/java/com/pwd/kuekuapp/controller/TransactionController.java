@@ -73,9 +73,14 @@ public class TransactionController {
 		return transactionService.getByPendingStatus(status, userId);
 	}
 	
-	@GetMapping("/terlaris")
-	public Iterable<Transactions> getBestSellerPlans(){
-		return transactionRepo.getBestSellerPlans();
+	@GetMapping("/terlaris/{sort}")
+	public Iterable<Transactions> getBestSellerPlans(@PathVariable String sort){
+		return transactionService.getBestSellerPlans(sort);
+	}
+	
+	@GetMapping("/periode/terlaris/{sort}")
+	public Iterable<Transactions> getBestSellerPlans(@RequestParam String planPeriod, @PathVariable String sort){
+		return transactionService.getBestSellerPeriodPlans(planPeriod, sort);
 	}
 	
 	@PostMapping("/tambah/pengguna/{userId}/langganan/{planId}")

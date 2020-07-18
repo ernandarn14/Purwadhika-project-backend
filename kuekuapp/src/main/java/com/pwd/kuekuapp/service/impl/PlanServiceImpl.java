@@ -65,4 +65,26 @@ public class PlanServiceImpl implements PlanService {
 		
 	}
 
+	@Override
+	@Transactional
+	public Iterable<Plans> adminGetAllPlans(String sort) {
+		if(sort.equals("asc")) {
+			return planRepo.getPlansAsc();
+		} else {
+			return planRepo.getPlansDesc();
+		}
+	}
+
+	@Override
+	@Transactional
+	public Iterable<Plans> adminGetAllPlansByPeriod(String planPeriod, String sort) {
+		if(sort.equals("asc")) {
+			return planRepo.getPlansByPeriodAsc(planPeriod);
+		} else {
+			return planRepo.getPlansByPeriodDesc(planPeriod);
+		}
+	}
+
+	
+
 }

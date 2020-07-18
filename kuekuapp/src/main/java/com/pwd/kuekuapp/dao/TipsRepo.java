@@ -22,5 +22,10 @@ public interface TipsRepo extends JpaRepository<Tips, Integer>, PagingAndSorting
 	@Query(value = "SELECT * FROM Tips order by tips_name desc", nativeQuery = true)
 	public Page<Tips> orderTipsNameDesc(Pageable pageable);
 	
+	//admin filter
+	@Query(value = "SELECT * FROM Tips order by tips_name asc", nativeQuery = true)
+	public Iterable<Tips> orderTipsNameAsc();
 	
+	@Query(value = "SELECT * FROM Tips order by tips_name desc", nativeQuery = true)
+	public Iterable<Tips> orderTipsNameDesc();
 }

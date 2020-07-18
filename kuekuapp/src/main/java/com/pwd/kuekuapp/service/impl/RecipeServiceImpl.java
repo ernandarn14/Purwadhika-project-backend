@@ -15,9 +15,9 @@ import com.pwd.kuekuapp.dao.RecipeRepo;
 import com.pwd.kuekuapp.dao.RecipeStepRepo;
 import com.pwd.kuekuapp.dao.UserRepo;
 import com.pwd.kuekuapp.entity.RecipeCategory;
-import com.pwd.kuekuapp.entity.RecipeSteps;
+//import com.pwd.kuekuapp.entity.RecipeSteps;
 import com.pwd.kuekuapp.entity.Recipes;
-import com.pwd.kuekuapp.entity.RecipesIngredients;
+//import com.pwd.kuekuapp.entity.RecipesIngredients;
 import com.pwd.kuekuapp.entity.Users;
 import com.pwd.kuekuapp.service.RecipeService;
 
@@ -129,6 +129,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteRecipes(int id) {
 		Recipes findRecipe = recipeRepo.findById(id).get();
 		if (findRecipe == null) {
@@ -166,6 +167,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+	@Transactional
 	public Iterable<Recipes> getBestRecipesByCategory(String categoryName, String sort) {
 		if(sort.equals("asc")) {
 			return recipeRepo.getChartBestRecipesBycategoryAsc(categoryName);
@@ -176,11 +178,33 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+	@Transactional
 	public Iterable<Recipes> getAllBestRecipe(String sort) {
 		if(sort.equals("asc")) {
 			return recipeRepo.getChartBestRecipesAsc();
 		} else {
 			return recipeRepo.getChartBestRecipesDesc();
+		}
+	}
+
+	@Override
+	@Transactional
+	public Iterable<Recipes> adminGetRecipeByCategory(String categoryName, String sort) {
+		if(sort.equals("asc")) {
+			return recipeRepo.getByCategoryAsc(categoryName);
+		} 
+		else {
+			return recipeRepo.getByCategoryDesc(categoryName);
+		}
+	}
+
+	@Override
+	@Transactional
+	public Iterable<Recipes> adminGetAllRecipe(String sort) {
+		if(sort.equals("asc")) {
+			return recipeRepo.getRecipeByAsc();
+		} else {
+			return recipeRepo.getRecipeByDesc();
 		}
 	}
 

@@ -60,14 +60,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public Users loginUser(String username, String password) {
-//		Users findUser = userRepo.findByUsername(username).get();
-//
-//		if (pwEncoder.matches(password, findUser.getPassword())) {
-////			findUser.setPassword(null);
-//			return findUser;
-//		}
-//
-//		throw new RuntimeException("Username atau Password Salah");
 		Users findUser = userRepo.findByUsername(username).get();
 
 		if (pwEncoder.matches(password, findUser.getPassword())) {
@@ -117,31 +109,6 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return findEmailUser;
-		
-
-//		String verifyToken = pwEncoder.encode(user.getUsername() + user.getEmail());
-//
-//		if (userRepo.findUserEmail(user.getEmail()) == null) {
-//			throw new RuntimeException("Email tidak ditemukan");
-//		} else {
-//			user.setVerifyToken(verifyToken);
-//			userRepo.save(user);
-//
-//			String linkVerify = "http://localhost:8080/pengguna/lupa-password/" + user.getUsername() + "/"
-//					+ verifyToken;
-//
-//			String bodyMessage = "<h2>Atur Ulang Password Kueku</h2>\n";
-//			bodyMessage += "Hai " + user.getUsername() + "\n";
-//			bodyMessage += "Kami telah menerima permohonan untuk mengatur ulang password Anda\n";
-//			bodyMessage += "Silahkan klik <a href=\"" + linkVerify
-//					+ "\">link</a> untuk mengatur ulang password Anda.\n";
-//			bodyMessage += "\n";
-//			bodyMessage += "\nKueku Team";
-//
-//			emailUtil.sendEmail(user.getEmail(), "Atur Ulang Password Anda", bodyMessage);
-//		}
-//
-//		return userRepo.save(user);
 	}
 
 	@Override
@@ -150,27 +117,6 @@ public class UserServiceImpl implements UserService {
 		Users findUser = userRepo.findByUsername(username).get();
 		findUser = userRepo.findByVerifyToken(token).get();
 		return findUser;
-//		if(findUser.getVerifyToken().equals(token)) {
-//			return userRepo.save(findUser);
-//		} else {
-//			throw new RuntimeException("Token sudah kadaluarsa");
-//		}
-		
-//		findUser = userRepo.findByVerifyToken(token).get();
-//		return findUser;
-//		String encodedPassword = pwEncoder.encode(findUser.getPassword());
-//
-//		if (findUser.getVerifyToken().equals(token)) {
-//			findUser.setPassword(encodedPassword);
-//			;
-//		} else {
-//			throw new RuntimeException("Token sudah kadaluarsa");
-//		}
-//
-//		userRepo.save(findUser);
-//
-//		return "Password Berhasil Diubah";
-
 	}
 
 	@Override
@@ -202,6 +148,25 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public Optional<Users> findByEmail(String email) {
 		return userRepo.findUserEmail(email);
+	}
+
+	@Override
+	@Transactional
+	public Iterable<Users> adminGetAllUser(String sort) {
+		if(sort.equals("asc")) {
+			return userRepo.getAllPremiumUsersAsc();
+		} else {
+			return userRepo.getAllPremiumUsersDesc();
+		}
+	}
+
+	@Override
+	public Iterable<Users> adminGetByMembership(String membership, String sort) {
+		if(sort.equals("asc")) {
+			return userRepo.getUsersByMembershipAsc(membership);
+		} else {
+			return userRepo.getUsersByMembershipDesc(membership);
+		}
 	}
 
 }

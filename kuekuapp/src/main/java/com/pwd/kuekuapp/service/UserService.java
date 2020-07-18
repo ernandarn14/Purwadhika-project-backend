@@ -15,5 +15,6 @@ public interface UserService {
 	public Optional<Users> findUserById(int id);
 	public Users editUsers(Users user, int id);
 	public Iterable<Users> getUniqueUser(String username, String email);
-	//public Iterable<Users> getOldPasswordUser(String password);
+	public Iterable<Users> adminGetAllUser(String sort);
+	public Iterable<Users> adminGetByMembership(String membership, String sort);
 }

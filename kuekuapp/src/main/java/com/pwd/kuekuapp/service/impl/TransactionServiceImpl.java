@@ -142,4 +142,24 @@ public class TransactionServiceImpl implements TransactionService {
 		return newData;
 	}
 
+	@Override
+	@Transactional
+	public Iterable<Transactions> getBestSellerPlans(String sort) {
+		if(sort.equals("asc")) {
+			return transactionRepo.getBestSellerPlansAsc();
+		} else {
+			return transactionRepo.getBestSellerPlansDesc();
+		}
+	}
+
+	@Override
+	@Transactional
+	public Iterable<Transactions> getBestSellerPeriodPlans(String planPeriod, String sort) {
+		if(sort.equals("asc")) {
+			return transactionRepo.getBestPlansByPeriodAsc(planPeriod);
+		} else {
+			return transactionRepo.getBestPlansByPeriodDesc(planPeriod);
+		}
+	}
+
 }

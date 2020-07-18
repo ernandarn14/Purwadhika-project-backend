@@ -20,5 +20,7 @@ public interface RecipeService {
 	public Page<Recipes> getAllRecipePagination(String sort, Pageable pageable);
 	public Iterable<Recipes> getBestRecipesByCategory(String categoryName, String sort);
 	public Iterable<Recipes> getAllBestRecipe(String sort);
+	public Iterable<Recipes> adminGetRecipeByCategory(String categoryName, String sort);
+	public Iterable<Recipes> adminGetAllRecipe(String sort);
 	public void deleteRecipes(int id);
 }

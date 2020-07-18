@@ -89,8 +89,8 @@ public class RecipeIngredientServiceImpl implements RecipeIngredientService {
 			throw new RuntimeException("Resep tidak ditemukan");
 		}
 		
-		findIngredient.setRecipes(findRecipe);
-		findIngredient.setId(recipesIngredients.getId());
+		recipesIngredients.setRecipes(findRecipe);
+		recipesIngredients.setId(recipesIngredients.getId());
 		
 		return recipeIngredientsRepo.save(recipesIngredients);
 	}

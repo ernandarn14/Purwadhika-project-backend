@@ -10,4 +10,6 @@ public interface PlanService {
 	public Plans addNewPlans(Plans plan);
 	public Plans editPlans(Plans plan);
 	public void deletePlans(int id);
+	public Iterable<Plans> adminGetAllPlans(String sort);
+	public Iterable<Plans> adminGetAllPlansByPeriod(String planPeriod, String sort);
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pwd.kuekuapp.entity.Plans;
@@ -31,6 +32,16 @@ public class PlanController {
 	@GetMapping("/{id}")
 	public Optional<Plans> getPlansById(@PathVariable int id){
 		return planService.getPlansById(id);
+	}
+	
+	@GetMapping("/admin/{sort}")
+	public Iterable<Plans> adminGetAllPlans(@PathVariable String sort){
+		return planService.adminGetAllPlans(sort);
+	}
+	
+	@GetMapping("/admin/periode/{sort}")
+	public Iterable<Plans> adminGetAllPlansByPeriod(@RequestParam String planPeriod, @PathVariable String sort){
+		return planService.adminGetAllPlansByPeriod(planPeriod, sort);
 	}
 	
 	

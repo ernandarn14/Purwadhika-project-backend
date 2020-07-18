@@ -112,11 +112,6 @@ public class UserController {
 		throw new RuntimeException("Password Salah");
 	}
 
-//	@GetMapping("/verifikasi/{username}")
-//	public String verifyEmailUser(@PathVariable String username, @RequestParam String token) {
-//		return userService.verifyUniqueUser(username, token);
-//	}
-
 	@GetMapping("/{username}")
 	public Optional<Users> findByUsername(@PathVariable String username) {
 		return userService.findByUsername(username);
@@ -228,13 +223,13 @@ public class UserController {
 		throw new RuntimeException("Password Tidak Valid");
 	}
 	
-	@GetMapping("/premium")
-	public Iterable<Users> getAllPremiumUser() {
-		return userRepo.getAllPremiumUsers();
+	@GetMapping("/premium/{sort}")
+	public Iterable<Users> getAllPremiumUser(@PathVariable String sort) {
+		return userService.adminGetAllUser(sort);
 	}
 	
-	@GetMapping("/membership")
-	public Iterable<Users> getMembershipData() {
-		return userRepo.getMembershipData();
+	@GetMapping("/membership/{sort}")
+	public Iterable<Users> getMembershipData(@PathVariable String sort, @RequestParam String membership) {
+		return userService.adminGetByMembership(membership, sort);
 	}
 }

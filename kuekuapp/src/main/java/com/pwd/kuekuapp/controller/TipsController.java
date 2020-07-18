@@ -176,20 +176,11 @@ public class TipsController {
 		tipsService.deleteTipsById(id);
 	}
 	
-	@GetMapping("/pagination")
-	public Page<Tips> getTipsPerPage(Pageable pageable){
-		return tipsRepo.findAll(pageable);
+	@GetMapping("/admin/{sort}")
+	public Iterable<Tips> adminGetAllTips(@PathVariable String sort){
+		return tipsService.adminGetAllTips(sort);
 	}
 	
-	@GetMapping("/asc")
-	public Page<Tips> sortNameByAsc(Pageable pageable){
-		return tipsRepo.orderTipsNameAsc(pageable);
-	}
-	
-	@GetMapping("/desc")
-	public Page<Tips> sortNameByDesc(Pageable pageable){
-		return tipsRepo.orderTipsNameDesc(pageable);
-	}
 	
 	@GetMapping("/sort/{sort}")
 	public Page<Tips> findTipsByName(@PathVariable String sort, Pageable pageable){

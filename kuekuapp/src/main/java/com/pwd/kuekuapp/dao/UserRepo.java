@@ -27,10 +27,16 @@ public interface UserRepo extends JpaRepository<Users, Integer>,  PagingAndSorti
 	@Query(value = "SELECT membership, u.* FROM Users u group by membership", nativeQuery = true)
 	public Iterable<Users> getMembershipData();
 	
-	@Query(value="SELECT count(*) as total, u.* FROM Users u where role='pengguna' group by membership", nativeQuery = true)
-	public Iterable<Users> getAllPremiumUsers();
+	@Query(value="SELECT count(*) as total, u.* FROM Users u where role='pengguna' group by membership order by total asc", nativeQuery = true)
+	public Iterable<Users> getAllPremiumUsersAsc();
 	
-	@Query(value="SELECT count(*) as total, u.* FROM Users u where role='pengguna' && membership=?1 group by membership", nativeQuery = true)
-	public Page<Users> getUsersByMembership(String membership, Pageable pageable);
+	@Query(value="SELECT count(*) as total, u.* FROM Users u where role='pengguna' group by membership order by total desc", nativeQuery = true)
+	public Iterable<Users> getAllPremiumUsersDesc();
+	
+	@Query(value="SELECT count(*) as total, u.* FROM Users u where role='pengguna' && membership=?1 group by membership order by total asc", nativeQuery = true)
+	public Iterable<Users> getUsersByMembershipAsc(String membership);
+	
+	@Query(value="SELECT count(*) as total, u.* FROM Users u where role='pengguna' && membership=?1 group by membership order by total desc", nativeQuery = true)
+	public Iterable<Users> getUsersByMembershipDesc(String membership);
 	
 }

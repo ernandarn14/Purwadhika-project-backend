@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +35,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwd.kuekuapp.dao.TransactionRepo;
 import com.pwd.kuekuapp.entity.Transactions;
 import com.pwd.kuekuapp.service.TransactionService;
-import com.pwd.kuekuapp.util.EmailUtil;
 
 @RestController
 @RequestMapping("/transaksi")
@@ -56,6 +56,11 @@ public class TransactionController {
 	@GetMapping("/{id}")
 	public Optional<Transactions> getTransactionById(@PathVariable int id){
 		return transactionService.getTransactionById(id);
+	}
+	
+	@DeleteMapping("/hapus/{id}")
+	public void deleteTransaction(@PathVariable int id) {
+		transactionService.deleteTransaction(id);
 	}
 	
 	@GetMapping("/semua")

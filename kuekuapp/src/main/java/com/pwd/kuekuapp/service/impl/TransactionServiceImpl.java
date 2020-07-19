@@ -162,4 +162,22 @@ public class TransactionServiceImpl implements TransactionService {
 		}
 	}
 
+	@Override
+	@Transactional
+	public void deleteTransaction(int id) {
+		Transactions findTransaction = transactionRepo.findById(id).get();
+		if(findTransaction == null)
+			throw new RuntimeException("Data tidak ditemukan");
+		
+		//putus relasi dengan user
+		findTransaction.getUser().setTransaction(null);
+		findTransaction.setUser(null);
+		
+		//putus relasi dengan plan
+		findTransaction.getPlans().setTransactions(null);
+		findTransaction.setPlans(null);
+		
+		transactionRepo.deleteById(id);
+	}
+
 }

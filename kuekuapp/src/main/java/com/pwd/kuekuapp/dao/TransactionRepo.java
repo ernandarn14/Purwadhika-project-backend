@@ -3,7 +3,6 @@ package com.pwd.kuekuapp.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.pwd.kuekuapp.entity.Plans;
 import com.pwd.kuekuapp.entity.Transactions;
 
 public interface TransactionRepo extends JpaRepository<Transactions, Integer> {

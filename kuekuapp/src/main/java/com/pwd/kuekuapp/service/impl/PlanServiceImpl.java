@@ -65,19 +65,6 @@ public class PlanServiceImpl implements PlanService {
 
 	}
 
-//	@Override
-//	@Transactional
-//	public Iterable<Plans> adminGetAllPlans(String sort, String order, double minPrice, double maxPrice) {
-//		if(order.equals("planName") && sort.equals("asc")) {
-//			return planRepo.getPlansAsc();
-//		} else if (order.equals("planName") && sort.equals("desc")) {
-//			return planRepo.getPlansDesc();
-//		} else if (order.equals("price") && sort.equals("asc")) {
-//			return planRepo.getPlansByPriceAsc(minPrice, maxPrice);
-//		} else {
-//			return planRepo.getPlansByPriceDesc(minPrice, maxPrice);
-//		}
-//	}
 
 	@Override
 	@Transactional

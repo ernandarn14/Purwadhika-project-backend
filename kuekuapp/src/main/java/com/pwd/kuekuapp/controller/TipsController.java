@@ -121,15 +121,6 @@ public class TipsController {
 		
 	}
 	
-//	@PostMapping("/tambah/pengguna/{userId}")
-//	public Tips addNewTips(@RequestBody Tips tips, @PathVariable int userId) {
-//		Users findUserId = userRepo.findById(userId).get();
-//
-//		if (findUserId == null)
-//			throw new RuntimeException("Pengguna tidak ditemukan");
-//		tips.setUsers(findUserId);
-//		return tipsRepo.save(tips);
-//	}
 	
 	@PutMapping("/edit/{tipsId}/pengguna/{userId}")
 	public String updateTips(@RequestParam("file") Optional<MultipartFile> file, @RequestParam("userData") String stringTips,  @PathVariable int userId, @PathVariable int tipsId) throws JsonMappingException, JsonProcessingException {

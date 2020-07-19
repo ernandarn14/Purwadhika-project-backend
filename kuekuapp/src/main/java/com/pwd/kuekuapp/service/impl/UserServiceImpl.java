@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 		String bodyMessage = "<h1>Selamat, Registrasi Anda Berhasil!</h1>\n";
 		bodyMessage += "Akun dengan username " + user.getUsername() + " telah terdaftar.\n";
 		bodyMessage += "Silahkan klik <a href=\"" + linkVerify + "\">link</a> untuk verifikasi email anda.\n";
-		bodyMessage += "Kueku Team";
+		bodyMessage += "\n<p>Kueku Team</p>";
 
 		emailUtil.sendEmail(user.getEmail(), "Verifikasi Akun", bodyMessage);
 

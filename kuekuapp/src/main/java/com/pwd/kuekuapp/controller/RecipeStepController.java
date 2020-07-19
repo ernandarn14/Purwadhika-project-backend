@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pwd.kuekuapp.dao.RecipeStepRepo;
 import com.pwd.kuekuapp.entity.RecipeSteps;
 import com.pwd.kuekuapp.service.RecipeStepService;
 
@@ -25,8 +24,8 @@ public class RecipeStepController {
 	@Autowired
 	private RecipeStepService recipeStepService;
 	
-	@Autowired
-	private RecipeStepRepo recipeStepRepo;
+//	@Autowired
+//	private RecipeStepRepo recipeStepRepo;
 	
 	@GetMapping
 	public Iterable<RecipeSteps> getAllSteps(){

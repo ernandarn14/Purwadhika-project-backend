@@ -9,8 +9,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -78,7 +76,7 @@ public class UserController {
 		String bodyMessage = "<h1>Selamat, Registrasi Anda Berhasil!</h1>\n";
 		bodyMessage += "Akun dengan username " + user.getUsername() + " telah terdaftar.\n";
 		bodyMessage += "Silahkan klik <a href=\"" + linkVerify + "\">link</a> untuk verifikasi email anda.\n";
-		bodyMessage += "Kueku Team";
+		bodyMessage += "\n<p>Kueku Team</p>";
 
 		emailUtil.sendEmail(user.getEmail(), "Verifikasi Akun", bodyMessage);
 		return savedUser;

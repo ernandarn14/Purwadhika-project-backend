@@ -74,4 +74,15 @@ public interface RecipeRepo extends JpaRepository<Recipes, Integer>,  PagingAndS
 	
 	@Query(value ="SELECT * FROM recipes r join recipe_category rc on rc.id = r.recipe_category_id where rc.recipe_category_name=?1 order by recipe_name desc ", nativeQuery = true)
 	public Iterable<Recipes> getByCategoryDesc(String categoryName);
+	
+	
+	//filter user menu
+	@Query(value = "SELECT * FROM Recipes WHERE user_id = ?1 order by recipe_name asc", nativeQuery = true)
+	public Iterable<Recipes> getRecipesByUserAsc(int users);
+	@Query(value = "SELECT * FROM Recipes WHERE user_id = ?1 order by recipe_name desc", nativeQuery = true)
+	public Iterable<Recipes> getRecipesByUserDesc(int users);
+	@Query(value ="SELECT * FROM recipes r join recipe_category rc on rc.id = r.recipe_category_id where rc.recipe_category_name=?1 and user_id=?2 order by recipe_name asc ", nativeQuery = true)
+	public Iterable<Recipes> getByCategoryUserAsc(String categoryName, int users);
+	@Query(value ="SELECT * FROM recipes r join recipe_category rc on rc.id = r.recipe_category_id where rc.recipe_category_name=?1 and user_id=?2 order by recipe_name desc ", nativeQuery = true)
+	public Iterable<Recipes> getByCategoryUserDesc(String categoryName, int users);
 }

@@ -13,7 +13,7 @@ import com.pwd.kuekuapp.service.PlanService;
 
 @Service
 public class PlanServiceImpl implements PlanService {
-	
+
 	@Autowired
 	private PlanRepo planRepo;
 
@@ -40,10 +40,10 @@ public class PlanServiceImpl implements PlanService {
 	@Transactional
 	public Plans editPlans(Plans plan) {
 		Plans findPlan = planRepo.findById(plan.getId()).get();
-		if (findPlan == null){
+		if (findPlan == null) {
 			throw new RuntimeException("Langganan tidak ditemukan");
 		}
-		
+
 		return planRepo.save(plan);
 	}
 
@@ -51,40 +51,66 @@ public class PlanServiceImpl implements PlanService {
 	@Transactional
 	public void deletePlans(int id) {
 		Plans findPlan = planRepo.findById(id).get();
-		if (findPlan == null){
+		if (findPlan == null) {
 			throw new RuntimeException("Langganan tidak ditemukan");
 		}
-		
+
 		findPlan.getTransactions().forEach(plan -> {
 			plan.setPlans(null);
-			//planRepo.save(plan);
+			// planRepo.save(plan);
 		});
 		findPlan.setTransactions(null);
-		
+
 		planRepo.deleteById(id);
-		
+
 	}
+
+//	@Override
+//	@Transactional
+//	public Iterable<Plans> adminGetAllPlans(String sort, String order, double minPrice, double maxPrice) {
+//		if(order.equals("planName") && sort.equals("asc")) {
+//			return planRepo.getPlansAsc();
+//		} else if (order.equals("planName") && sort.equals("desc")) {
+//			return planRepo.getPlansDesc();
+//		} else if (order.equals("price") && sort.equals("asc")) {
+//			return planRepo.getPlansByPriceAsc(minPrice, maxPrice);
+//		} else {
+//			return planRepo.getPlansByPriceDesc(minPrice, maxPrice);
+//		}
+//	}
 
 	@Override
 	@Transactional
-	public Iterable<Plans> adminGetAllPlans(String sort) {
-		if(sort.equals("asc")) {
-			return planRepo.getPlansAsc();
-		} else {
-			return planRepo.getPlansDesc();
+	public Iterable<Plans> adminGetAllPlansByPeriod(String planPeriod, String sort, String order, double minPrice, double maxPrice) {
+		if (maxPrice == 0) {
+			maxPrice = 9999999;
 		}
-	}
-
-	@Override
-	@Transactional
-	public Iterable<Plans> adminGetAllPlansByPeriod(String planPeriod, String sort) {
-		if(sort.equals("asc")) {
+		if (order.equals("planName") && sort.equals("asc")) {
 			return planRepo.getPlansByPeriodAsc(planPeriod);
-		} else {
+		} else if (order.equals("planName") && sort.equals("desc")) {
 			return planRepo.getPlansByPeriodDesc(planPeriod);
+		} else if (order.equals("price") && sort.equals("asc")) {
+			return planRepo.getPlansByPeriodPriceAsc(planPeriod, minPrice, maxPrice);
+		} else {
+			return planRepo.getPlansByPeriodPriceDesc(planPeriod, minPrice, maxPrice);
 		}
 	}
 
-	
+	@Override
+	@Transactional
+	public Iterable<Plans> adminGetAllPlans(String sort, String order, double minPrice, double maxPrice) {
+		if (maxPrice == 0) {
+			maxPrice = 9999999;
+		}
+		if (order.equals("planName") && sort.equals("asc")) {
+			return planRepo.getPlansAsc();
+		} else if (order.equals("planName") && sort.equals("desc")) {
+			return planRepo.getPlansDesc();
+		} else if (order.equals("price") && sort.equals("asc")) {
+			return planRepo.getPlansByPriceAsc(minPrice, maxPrice);
+		} else {
+			return planRepo.getPlansByPriceDesc(minPrice, maxPrice);
+		}
+	}
 
 }

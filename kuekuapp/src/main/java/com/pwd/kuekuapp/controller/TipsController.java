@@ -65,9 +65,9 @@ public class TipsController {
 		return tipsService.getTipsById(id);
 	}
 	
-	@GetMapping("/pengguna/{users}")
-	public Iterable<Tips> getTipsByUser(@PathVariable int users){
-		return tipsService.getTipsByUser(users);
+	@GetMapping("/pengguna/{users}/{sort}")
+	public Iterable<Tips> getTipsByUser(@PathVariable int users, @PathVariable String sort){
+		return tipsService.getTipsByUser(users, sort);
 	}
 	
 	@PostMapping("/pengguna/{users}")

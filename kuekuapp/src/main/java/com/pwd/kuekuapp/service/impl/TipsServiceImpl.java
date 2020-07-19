@@ -46,8 +46,12 @@ public class TipsServiceImpl implements TipsService {
 
 	@Override
 	@Transactional
-	public Iterable<Tips> getTipsByUser(int users) {
-		return tipsRepo.getTipsByUsers(users);
+	public Iterable<Tips> getTipsByUser(int users, String sort) {
+		if (sort.equals("asc")) {
+			return tipsRepo.getTipsByUsersAsc(users);
+		} else {
+			return tipsRepo.getTipsByUsersDesc(users);
+		}
 	}
 
 	@Override

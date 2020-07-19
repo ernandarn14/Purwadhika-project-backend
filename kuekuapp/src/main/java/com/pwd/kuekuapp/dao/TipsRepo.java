@@ -28,4 +28,10 @@ public interface TipsRepo extends JpaRepository<Tips, Integer>, PagingAndSorting
 	
 	@Query(value = "SELECT * FROM Tips order by tips_name desc", nativeQuery = true)
 	public Iterable<Tips> orderTipsNameDesc();
+	
+	//usermenu filter
+	@Query(value = "SELECT * FROM Tips WHERE user_id = ?1 order by tips_name asc", nativeQuery = true)
+	public Iterable<Tips> getTipsByUsersAsc(int users);
+	@Query(value = "SELECT * FROM Tips WHERE user_id = ?1 order by tips_name desc", nativeQuery = true)
+	public Iterable<Tips> getTipsByUsersDesc(int users);
 }

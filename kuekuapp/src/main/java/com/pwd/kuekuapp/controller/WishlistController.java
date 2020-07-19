@@ -52,9 +52,14 @@ public class WishlistController {
 		return wishlistRepo.getUniqueWishlist(userId, recipeId);
 	}
 	
-	@GetMapping("/pengguna/{users}")
-	public Iterable<Wishlists> getWishlistByUser(@PathVariable int users){
-		return wishlistService.getWishlistByUser(users);
+	@GetMapping("/pengguna/{users}/{sort}")
+	public Iterable<Wishlists> getWishlistByUser(@PathVariable int users, @PathVariable String sort){
+		return wishlistService.getWishlistByUser(users, sort);
+	}
+	
+	@GetMapping("/pengguna/{users}/kategori/{sort}")
+	public Iterable<Wishlists> getWishlistByUser(@PathVariable int users, @PathVariable String sort, @RequestParam String categoryName){
+		return wishlistService.getWishlistCategoryByUser(users, sort, categoryName);
 	}
 	
 	@PostMapping("/tambah/pengguna/{users}/resep/{recipes}")

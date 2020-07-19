@@ -52,8 +52,12 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	@Transactional
-	public Iterable<Recipes> getRecipeByUser(int users) {
-		return recipeRepo.getRecipesByUser(users);
+	public Iterable<Recipes> getRecipeByUser(int users, String sort) {
+		if (sort.equals("asc")) {
+			return recipeRepo.getRecipesByUserAsc(users);
+		} else {
+			return recipeRepo.getRecipesByUserDesc(users);
+		}
 	}
 
 	@Override
@@ -205,6 +209,16 @@ public class RecipeServiceImpl implements RecipeService {
 			return recipeRepo.getRecipeByAsc();
 		} else {
 			return recipeRepo.getRecipeByDesc();
+		}
+	}
+
+	@Override
+	@Transactional
+	public Iterable<Recipes> getRecipeByCategoryUser(int users, String categoryName, String sort) {
+		if(sort.equals("asc")) {
+			return recipeRepo.getByCategoryUserAsc(categoryName, users);
+		} else {
+			return recipeRepo.getByCategoryUserDesc(categoryName, users);
 		}
 	}
 

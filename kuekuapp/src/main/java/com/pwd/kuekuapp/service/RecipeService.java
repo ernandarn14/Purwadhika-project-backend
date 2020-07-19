@@ -11,7 +11,8 @@ public interface RecipeService {
 	public Iterable<Recipes> getAllRecipe();
 	public Iterable<Recipes> getBestRecipe();
 	public Optional<Recipes> getRecipeById(int id);
-	public Iterable<Recipes> getRecipeByUser(int users);
+	public Iterable<Recipes> getRecipeByUser(int users, String sort);
+	public Iterable<Recipes> getRecipeByCategoryUser(int users, String categoryName, String sort);
 	public Iterable<Recipes> getCategoryName(int id);
 	public Iterable<Recipes> getRecipeCategoryName();
 	public Recipes addRecipe(Recipes recipes, int recipeCategory, int users);

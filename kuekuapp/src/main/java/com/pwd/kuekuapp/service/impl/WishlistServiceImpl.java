@@ -70,8 +70,12 @@ public class WishlistServiceImpl implements WishlistService {
 
 	@Override
 	@Transactional
-	public Iterable<Wishlists> getWishlistByUser(int users) {
-		return wishlistRepo.getWishlistByUsers(users);
+	public Iterable<Wishlists> getWishlistByUser(int users, String sort) {
+		if (sort.equals("asc")) {
+			return wishlistRepo.getWishlistByUsersAsc(users);
+		} else {
+			return wishlistRepo.getWishlistByUserDesc(users);
+		}
 	}
 
 	@Override
@@ -92,6 +96,16 @@ public class WishlistServiceImpl implements WishlistService {
 		wishlists.setRecipes(findRecipe);
 		
 		return wishlistRepo.save(wishlists);
+	}
+
+	@Override
+	@Transactional
+	public Iterable<Wishlists> getWishlistCategoryByUser(int users, String sort, String categoryName) {
+		if (sort.equals("asc")) {
+			return wishlistRepo.getWishlistCategoryByUsersAsc(users, categoryName);
+		} else {
+			return wishlistRepo.getWishlistCategoryByUsersDesc(users, categoryName);
+		}
 	}
 
 }

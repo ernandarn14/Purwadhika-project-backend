@@ -34,14 +34,14 @@ public class PlanController {
 		return planService.getPlansById(id);
 	}
 	
-	@GetMapping("/admin/{sort}")
-	public Iterable<Plans> adminGetAllPlans(@PathVariable String sort){
-		return planService.adminGetAllPlans(sort);
+	@GetMapping("/admin/{sort}/{order}/{minPrice}/{maxPrice}")
+	public Iterable<Plans> adminGetAllPlans(@PathVariable String sort, @PathVariable String order, @PathVariable double minPrice, @PathVariable double maxPrice){
+		return planService.adminGetAllPlans(sort, order, minPrice, maxPrice);
 	}
 	
-	@GetMapping("/admin/periode/{sort}")
-	public Iterable<Plans> adminGetAllPlansByPeriod(@RequestParam String planPeriod, @PathVariable String sort){
-		return planService.adminGetAllPlansByPeriod(planPeriod, sort);
+	@GetMapping("/admin/periode/{sort}/{order}/{minPrice}/{maxPrice}")
+	public Iterable<Plans> adminGetAllPlansByPeriod(@RequestParam String planPeriod, @PathVariable String sort, @PathVariable String order, @PathVariable double minPrice, @PathVariable double maxPrice){
+		return planService.adminGetAllPlansByPeriod(planPeriod, sort, order, minPrice, maxPrice);
 	}
 	
 	

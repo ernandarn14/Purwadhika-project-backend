@@ -71,9 +71,19 @@ public class RecipeController {
 		return recipeService.getRecipeById(id);
 	}
 
-	@GetMapping("/pengguna/{users}")
-	public Iterable<Recipes> getRecipeByUser(@PathVariable int users) {
-		return recipeService.getRecipeByUser(users);
+	@GetMapping("/pengguna/{users}/{sort}")
+	public Iterable<Recipes> getRecipeByUser(@PathVariable int users, @PathVariable String sort) {
+		return recipeService.getRecipeByUser(users, sort);
+//		if (sort.equals("asc")) {
+//			return recipeRepo.getRecipesByUserAsc(users);
+//		} else {
+//			return recipeRepo.getRecipesByUserAsc(users);
+//		}
+	}
+	
+	@GetMapping("/pengguna/{users}/kategori/{sort}")
+	public Iterable<Recipes> getRecipeCategoryByUser(@PathVariable int users, @PathVariable String sort, @RequestParam String categoryName) {
+		return recipeService.getRecipeByCategoryUser(users, categoryName, sort);
 	}
 
 	@GetMapping("/{id}/kategori")
